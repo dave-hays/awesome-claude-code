@@ -88,3 +88,15 @@ def access_quiet_score(
     if (category == "class2_town" and not unpaved) or (unpaved and high):
         return 40.0 * (1.0 - p)
     return 69.0 - 28.0 * p
+
+
+def gate_radii(
+    benchmark_nearest_m: dict[str, float],
+    defaults: dict[str, float] = config.LOS_GATE_RADIUS_M,
+    margin: float = config.BENCHMARK_LOS_MARGIN,
+) -> dict[str, float]:
+    """Line-of-sight gate radius per tier, capped below the silent benchmark's nearest visible emitter.
+
+    A tier the benchmark cannot see within the computed radius (``inf`` or absent) keeps its default.
+    """
+    return {tier: min(r, margin * benchmark_nearest_m.get(tier, np.inf)) for tier, r in defaults.items()}

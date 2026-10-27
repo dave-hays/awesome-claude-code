@@ -49,7 +49,9 @@ pytest
    AADT ≥ 1500 road within 10 miles, which conflicts with Stage 3's requirement of wide distant
    views. The viewshed runs once to 10 miles and stores the distance to the nearest visible
    emitter per tier. Defaults gate at 5 km (AADT ≥ 1500) and 8 km (I-91, grades over 5%);
-   changing them needs no recompute.
+   changing them needs no recompute. The owner reports no audible road noise at the benchmark,
+   so each tier's radius is capped at 0.9 × the benchmark's own nearest visible emitter
+   distance (`roads.gate_radii`): the gate never rejects a sightline the benchmark shows is quiet.
 2. **Calibration halts and reports.** If the benchmark scores below 88 or the 95th percentile,
    the run stops with its sub-scores. Weights are not re-tuned automatically: with four
    weights almost any parcel can be forced to the top.

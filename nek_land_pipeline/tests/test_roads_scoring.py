@@ -5,7 +5,7 @@ from shapely.geometry import LineString
 
 from nek import scoring
 from nek.isochrone import build_graph
-from nek.roads import access_quiet_score, centrality_percentile, dead_end_edges, steep_pieces
+from nek.roads import access_quiet_score, centrality_percentile, dead_end_edges, gate_radii, steep_pieces
 
 
 def test_steep_pieces_cover_only_the_steep_half():
@@ -86,3 +86,9 @@ def test_seller_propensity():
     assert scoring.seller_propensity(False, 10_000, None, np.nan, False) == 35
     out = scoring.seller_propensity([False, True], [0, 0], ["MA", "vt"], [10, 9], [False, False])
     assert list(out) == [80, 0]
+
+
+def test_gate_radii_never_reject_what_the_silent_benchmark_sees():
+    defaults = {"aadt_high": 5_000.0, "interstate": 8_000.0, "steep_grade": 8_000.0}
+    radii = gate_radii({"aadt_high": 3_000.0, "interstate": np.inf}, defaults, margin=0.9)
+    assert radii == {"aadt_high": 2_700.0, "interstate": 8_000.0, "steep_grade": 8_000.0}

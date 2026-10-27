@@ -67,6 +67,11 @@ LOS_GATE_RADIUS_M = {
     "steep_grade": 8_000.0,
 }
 ACOUSTIC_DEM_CELL_M = 10.0
+# Owner's ground truth: no road noise is audible at the benchmark on a still night. Each tier's
+# gate radius is capped at this fraction of the benchmark's nearest visible emitter distance, so
+# the gate never rejects a sightline the benchmark shows to be quiet.
+BENCHMARK_SILENT = True
+BENCHMARK_LOS_MARGIN = 0.9
 MIN_QUIET_M2 = 2.0 * ACRE
 LOCAL_AADT_MAX = 400
 CENTRALITY_SAMPLES = 500  # sampled sources for edge betweenness; seed fixed for determinism
