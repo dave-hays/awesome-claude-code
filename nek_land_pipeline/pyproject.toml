@@ -1,0 +1,27 @@
+[project]
+name = "nek-land-pipeline"
+version = "0.1.0"
+description = "Northeast Kingdom Master Target Registry: parcel screening for view, quiet and buildability"
+requires-python = ">=3.11"
+dependencies = [
+    "geopandas>=1.0",
+    "matplotlib>=3.8",
+    "networkx>=3.2",
+    "numpy>=1.26",
+    "pyogrio>=0.7",
+    "pyproj>=3.6",
+    "rasterio>=1.3",
+    "requests>=2.31",
+    "scipy>=1.12",
+    "shapely>=2.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.8"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+extend = "../pyproject.toml"
